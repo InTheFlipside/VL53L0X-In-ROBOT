@@ -3,7 +3,7 @@
 
 
 int debug = 0;  /// Activer le debuggage
-int timetostart = 50;
+int timetostart = 1;
 
 float medium;
 float sensorc;
@@ -164,20 +164,7 @@ if (debug != 0) { if (sensor3.timeoutOccurred())
     Serial.print("");
   }
 
-///MODE 0 
-
-sensorc = sensor.readRangeSingleMillimeters();
-sensorc2 = sensor2.readRangeSingleMillimeters(); 
-medium = sensorc / sensorc2;
-
-Serial.print("         Moyenne des valeurs:  ");
-Serial.print(medium);
-
-
-if(medium > 0 && medium < 0.90){digitalWrite(8, HIGH); digitalWrite(7,LOW);}
-if(medium > 0.90 && medium < 1.03){digitalWrite(8, LOW); digitalWrite(7,LOW); }
-if(medium > 1.03){digitalWrite(7, HIGH); digitalWrite(8, HIGH);}
-              
+             
 
 
 
