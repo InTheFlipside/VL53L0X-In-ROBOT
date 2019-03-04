@@ -2,8 +2,8 @@
 #include <VL53L0X.h>
 
 
-int debug = 0;  /// Activer le debuggage
 int timetostart = 1;
+int cote = 1;  // SI COTE = 0, alors le coté est le gauche, si COTE = 1, le coté est le droit
 
 float medium;
 float sensorc;
@@ -20,8 +20,8 @@ void setup()
 {
   pinMode(5, OUTPUT); // CAPTEUR GAUCHE AVANT
   pinMode(6, OUTPUT); // CAPTEUR GAUCHE ARRIERE
-  pinMode(7, OUTPUT); // LED DE TEST
-  pinMode(8, OUTPUT); // LED DE TEST
+ // pinMode(7, OUTPUT); // LED DE TEST
+ // pinMode(8, OUTPUT); // LED DE TEST
   pinMode(9, OUTPUT); // CAPTEUR DROITE AVANT
   pinMode(10, OUTPUT);// CAPTEUR DROITE ARRIERE
 
@@ -87,91 +87,34 @@ void loop(){
 sensorc = sensor.readRangeSingleMillimeters();
 sensorc2 = sensor2.readRangeSingleMillimeters();
 
- 
-  //Si le capteur ne fonctionne pas (voir sensor.setTimeout) -> Afficher un code d'erreur
-  if (debug != 0) {
-  if (sensor.timeoutOccurred())
-  {
-    Serial.println("_________________________________");
-    Serial.print("Sensor 1: ");
-    Serial.println(" TIMEOUT");
-    Serial.println("_________________________________");
-    Serial.println("");
-  } }
 
-  
-  else
-  {
+if(cote != 1) {
+
     Serial.print("Gauche Avant   (mm):  ");
     Serial.print( sensor.readRangeSingleMillimeters() );
-  }
 
-  ////Si le capteur ne fonctionne pas (voir sensor2.setTimeout) -> Afficher un code d'erreur
- if (debug != 0) { if (sensor2.timeoutOccurred())
-  {
-    Serial.println("_________________________________");
-    Serial.print("Sensor 2: ");
-    Serial.println(" TIMEOUT");
-    Serial.println("_________________________________");
-    Serial.println("");
-  } }
 
-  
-  else
-  {
    Serial.print("      "); // Pour mettre de l'espace entre les 2 affichages de distance sans toucher au serial.print "Distance 2..."
     Serial.print("Gauche Arriere   (mm): ");
     Serial.print(sensor2.readRangeSingleMillimeters());
-    Serial.print("");
-  }
+    Serial.println(""); }
 
-
-
-if (debug != 0) { if (sensor3.timeoutOccurred())
-  {
-    Serial.println("_________________________________");
-    Serial.print("Sensor 3: ");
-    Serial.println(" TIMEOUT");
-    Serial.println("_________________________________");
-    Serial.println("");
-  } }
-
-  
-  else
-  {
+if(cote != 0) {
    Serial.print("      "); // Pour mettre de l'espace entre les 2 affichages de distance sans toucher au serial.print "Distance 2..."
     Serial.print("Droite Avant   (mm): ");
     Serial.print(sensor3.readRangeSingleMillimeters());
     Serial.print("");
-  }
 
 
-  if (debug != 0) { if (sensor4.timeoutOccurred())
-  {
-    Serial.println("_________________________________");
-    Serial.print("Sensor 4: ");
-    Serial.println(" TIMEOUT");
-    Serial.println("_________________________________");
-    Serial.println("");
-  } }
-
-  
-  else
-  {
    Serial.print("      "); // Pour mettre de l'espace entre les 2 affichages de distance sans toucher au serial.print "Distance 2..."
     Serial.print("Droite arriere   (mm): ");
     Serial.print(sensor4.readRangeSingleMillimeters());
-    Serial.print("");
-  }
-
-             
-
-
-
-
-  Serial.println();
-  Serial.println("__________________________________________________________________");   // Fin de la captation de la distance
+    Serial.println(""); }
   
+
+
+
+
  
   delay(timetostart); 
   } // VOID LOOP
